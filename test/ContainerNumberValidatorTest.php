@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Ostrolucky\SymfonyContainerValidator\Test;
 
-use Ostrolucky\SymfonyContainerValidator\Container;
-use Ostrolucky\SymfonyContainerValidator\ContainerValidator;
+use Ostrolucky\SymfonyContainerNumberValidator\ContainerNumber;
+use Ostrolucky\SymfonyContainerNumberValidator\ContainerNumberValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class ContainerValidatorTest extends ConstraintValidatorTestCase
+class ContainerNumberValidatorTest extends ConstraintValidatorTestCase
 {
     /**
      * @dataProvider correctContainerIds
      */
     public function testValidateCorrectContainers(string $containerId): void
     {
-        $this->validator->validate($containerId, new Container());
+        $this->validator->validate($containerId, new ContainerNumber());
         $this->assertNoViolation();
     }
 
@@ -26,7 +26,7 @@ class ContainerValidatorTest extends ConstraintValidatorTestCase
      */
     public function testValidateIncorrectContainers($containerId, string $message): void
     {
-        $this->validator->validate($containerId, new Container());
+        $this->validator->validate($containerId, new ContainerNumber());
         $this->buildViolation($message)->assertRaised();
     }
 
@@ -48,16 +48,16 @@ class ContainerValidatorTest extends ConstraintValidatorTestCase
     public function incorrectContainerIds(): array
     {
         return [
-            ['CSI', Container::MESSAGE_MISSING_CHECK_DIGIT],
-            ['CSIU200082', Container::MESSAGE_MISSING_CHECK_DIGIT],
-            ['CSIU200082A', Container::MESSAGE_NON_NUMERIC_CHECK_DIGIT],
-            ['CSIU20 0820', Container::MESSAGE_INVALID_CHARACTERS],
-            ['INXU6011677', Container::DEFAULT_MESSAGE],
+            ['CSI', ContainerNumber::MESSAGE_MISSING_CHECK_DIGIT],
+            ['CSIU200082', ContainerNumber::MESSAGE_MISSING_CHECK_DIGIT],
+            ['CSIU200082A', ContainerNumber::MESSAGE_NON_NUMERIC_CHECK_DIGIT],
+            ['CSIU20 0820', ContainerNumber::MESSAGE_INVALID_CHARACTERS],
+            ['INXU6011677', ContainerNumber::DEFAULT_MESSAGE],
         ];
     }
 
-    protected function createValidator(): ContainerValidator
+    protected function createValidator(): ContainerNumberValidator
     {
-        return new ContainerValidator();
+        return new ContainerNumberValidator();
     }
 }

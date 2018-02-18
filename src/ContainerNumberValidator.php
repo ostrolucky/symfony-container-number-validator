@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ostrolucky\SymfonyContainerValidator;
+namespace Ostrolucky\SymfonyContainerNumberValidator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ContainerValidator extends ConstraintValidator
+class ContainerNumberValidator extends ConstraintValidator
 {
     private const LETTER_MATRIX = [
         'A' => 10,
@@ -52,30 +52,30 @@ class ContainerValidator extends ConstraintValidator
             return;
         }
 
-        if (!$constraint instanceof Container) {
-            throw new UnexpectedTypeException($constraint, Container::class);
+        if (!$constraint instanceof ContainerNumber) {
+            throw new UnexpectedTypeException($constraint, ContainerNumber::class);
         }
 
         if (!isset($value[self::LENGTH_WITHOUT_CHECK_DIGIT])) {
-            $this->context->buildViolation(Container::MESSAGE_MISSING_CHECK_DIGIT)->addViolation();
+            $this->context->buildViolation(ContainerNumber::MESSAGE_MISSING_CHECK_DIGIT)->addViolation();
 
             return;
         }
 
         if (!is_numeric($value[self::LENGTH_WITHOUT_CHECK_DIGIT])) {
-            $this->context->buildViolation(Container::MESSAGE_NON_NUMERIC_CHECK_DIGIT)->addViolation();
+            $this->context->buildViolation(ContainerNumber::MESSAGE_NON_NUMERIC_CHECK_DIGIT)->addViolation();
 
             return;
         }
 
-        $checkDigit = (int) $value[self::LENGTH_WITHOUT_CHECK_DIGIT];
+        $checkDigit = (int)$value[self::LENGTH_WITHOUT_CHECK_DIGIT];
 
         $total = 0;
         for ($i = 0; $i < self::LENGTH_WITHOUT_CHECK_DIGIT; ++$i) {
             $currentCharacterValue = self::LETTER_MATRIX[$value[$i]] ?? $value[$i] ?? null;
 
             if (!is_numeric($currentCharacterValue)) {
-                $this->context->buildViolation(Container::MESSAGE_INVALID_CHARACTERS)->addViolation();
+                $this->context->buildViolation(ContainerNumber::MESSAGE_INVALID_CHARACTERS)->addViolation();
 
                 return;
             }
@@ -83,7 +83,7 @@ class ContainerValidator extends ConstraintValidator
             $total += $currentCharacterValue * (2 ** $i);
         }
 
-        $checksum = $total - (int) ($total / 11) * 11;
+        $checksum = $total - (int)($total / 11) * 11;
 
         if ($checkDigit !== ($checksum === 10 ? 0 : $checksum)) {
             $this->context->buildViolation($constraint->message)->addViolation();

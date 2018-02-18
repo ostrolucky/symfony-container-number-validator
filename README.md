@@ -1,4 +1,4 @@
-# symfony-container-validator
+# symfony-container-number-validator
 Simple constraint for Symfony Validator which validates if supplied container number conforms to ISO 6346
 
 ## Install
@@ -6,7 +6,7 @@ Simple constraint for Symfony Validator which validates if supplied container nu
 Via Composer
 
 ``` bash
-composer require ostrolucky/symfony-container-validator
+composer require ostrolucky/symfony-container-number-validator
 ```
 
 ## Resources

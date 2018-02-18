@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ostrolucky\SymfonyContainerValidator;
+namespace Ostrolucky\SymfonyContainerNumberValidator;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class Container extends Constraint
+class ContainerNumber extends Constraint
 {
     public const MESSAGE_MISSING_CHECK_DIGIT = 'Missing check digit, which should be 11th character';
     public const MESSAGE_NON_NUMERIC_CHECK_DIGIT = 'Check digit at 11th position must be numeric';
