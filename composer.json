@@ -1,0 +1,21 @@
+{
+  "name": "ostrolucky/symfony-container-validator",
+  "description": "Simple constraint for Symfony Validator which validates if supplied container number conforms to ISO 6346",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gabriel Ostrolucký",
+      "email": "gabriel.ostrolucky@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "symfony/validator": ">=2.5"
+  },
+  "autoload": {
+    "psr-4": { "Ostrolucky\\SymfonyContainerValidator\\": "src" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Ostrolucky\\SymfonyContainerValidator\\Test\\": "test" }
+  }
+}
